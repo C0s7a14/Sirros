@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+python-jose[cryptography]
+passlib[bcrypt]
+alembic
+python-multipart
+pymupdf4llm
+python-dotenv
+pytest
+httpx
+sentence-transformers
+pgvector
+ollama
