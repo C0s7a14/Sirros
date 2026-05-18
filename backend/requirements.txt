@@ -10,6 +10,5 @@ pymupdf4llm
 python-dotenv
 pytest
 httpx
-sentence-transformers
 pgvector
-ollama
+pydantic[email]

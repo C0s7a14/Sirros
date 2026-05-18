@@ -1,7 +1,5 @@
-import ollama
 from sqlalchemy.orm import Session
 
-from app.embeddings import embed
 from app.modules.rag.repository import RagRepository
 from app.modules.rag.schemas import AskResponse, ChunkSource
 
@@ -26,6 +24,15 @@ class RagService:
         self.repo = RagRepository(db)
 
     def ask(self, training_id: str, question: str) -> AskResponse:
+        try:
+            import ollama
+            from app.embeddings import embed
+        except ImportError:
+            return AskResponse(
+                answer="RAG não disponível neste ambiente.",
+                sources=[],
+            )
+
         query_embedding = embed(question)
         chunks = self.repo.search_similar_chunks(training_id, query_embedding, limit=TOP_K)
 
