@@ -1,4 +1,4 @@
-"""add pgvector embedding to training_chunks
+"""add embedding column to training_chunks (JSONB, no pgvector required)
 
 Revision ID: b9c3d2e1f0a4
 Revises: a7d4c33dddeb
@@ -18,8 +18,7 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    op.execute("CREATE EXTENSION IF NOT EXISTS vector")
-    op.execute("ALTER TABLE training_chunks ADD COLUMN IF NOT EXISTS embedding vector(384)")
+    op.execute("ALTER TABLE training_chunks ADD COLUMN IF NOT EXISTS embedding JSONB")
 
 
 def downgrade() -> None:

@@ -13,3 +13,4 @@ httpx
 pgvector
 ollama
 pydantic[email]
+sentence-transformers
