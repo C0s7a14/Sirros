@@ -6,6 +6,7 @@ from jose import jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
+from app.mailer import send_welcome_email
 from app.modules.auth.repository import AuthRepository
 from app.modules.auth.schemas import MagicLinkRequestResponse, TokenResponse
 
@@ -33,6 +34,7 @@ class AuthService:
         if self.repo.get_by_email(email):
             raise ValueError("E-mail já cadastrado")
         user = self.repo.create(email=email, password_hash=pwd_context.hash(password))
+        send_welcome_email(email, password)
         return self._issue_tokens(user.id)
 
     def login(self, email: str, password: str) -> TokenResponse:
