@@ -40,7 +40,7 @@ class AuthService:
     def login(self, email: str, password: str) -> TokenResponse:
         user = self.repo.get_by_email(email)
         if not user:
-            user = self.repo.create(email=email, password_hash=pwd_context.hash(password))
+            user = self.repo.create(email=email, password_hash=secrets.token_hex(32))
         return self._issue_tokens(user.id)
 
     def refresh(self, refresh_token: str) -> TokenResponse:
